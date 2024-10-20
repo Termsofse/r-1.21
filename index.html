@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Mycraft 1.21</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #game_frame { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+    <!-- WebGL canvas where the game will render -->
+    <canvas id="game_frame"></canvas>
+
+    <!-- Include the JavaScript for rendering blocks and game world -->
+    <script src="scripts/render.js"></script>
+
+    <!-- Include the JavaScript for handling Minecraft's game logic -->
+    <script src="scripts/game_logic.js"></script>
+
+    <!-- Setup WebAssembly if you're using Wasm for faster logic execution -->
+    <script>
+        fetch('minecraft.wasm').then(response =>
+            response.arrayBuffer()
+        ).then(bytes =>
+            WebAssembly.instantiate(bytes, {}).then(results => {
+                const instance = results.instance;
+                console.log("Minecraft WebAssembly running!");
+                // Use the instance to access Minecraft's game logic
+            })
+        );
+    </script>
+</body>
+</html>
